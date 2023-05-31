@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="SimpleChartView">
+    <attr name="baseColor" format="color"/>
+    <attr name="dangerColor" format="color"/>
+    <attr name="threshold" format="integer"/>
+    <attr name="barWidth" format="dimension"/>
+  </declare-styleable>
+  <declare-styleable name="BadgeView">
+    <attr format="color" name="badgeColor" />
+    <attr format="integer" name="badgeAngle" />
+  </declare-styleable>
+</resources>
