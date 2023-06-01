@@ -4,13 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.Path.Direction.CW
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import ru.otus.canvas.R
-import ru.otus.views.px
+import ru.otus.canvas.utils.dp
 
 class SimpleChartView @JvmOverloads constructor (
     context: Context,
@@ -19,7 +17,7 @@ class SimpleChartView @JvmOverloads constructor (
 
     private val list = ArrayList<Int>()
     private var maxValue = 0
-    private var barWidth = 50.px.toFloat()
+    private var barWidth = 50.dp
     private lateinit var paintBaseFill : Paint
     private lateinit var paintDangerFill : Paint
     private var threshold: Int = Int.MAX_VALUE
@@ -35,7 +33,7 @@ class SimpleChartView @JvmOverloads constructor (
         val baseColor: Int = typedArray.getColor(R.styleable.SimpleChartView_baseColor, Color.GREEN)
         val dangerColor = typedArray.getColor(R.styleable.SimpleChartView_dangerColor, Color.RED)
         val threshold = typedArray.getInt(R.styleable.SimpleChartView_threshold, Int.MAX_VALUE)
-        val barWidth = typedArray.getDimension(R.styleable.SimpleChartView_barWidth, 50.px.toFloat())
+        val barWidth = typedArray.getDimension(R.styleable.SimpleChartView_barWidth, 50.dp)
         typedArray.recycle()
         setup(baseColor, dangerColor, threshold, barWidth)
     }
