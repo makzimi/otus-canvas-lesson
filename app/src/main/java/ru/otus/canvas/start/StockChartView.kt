@@ -8,21 +8,21 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import ru.otus.canvas.finish.Data.createLargeData
+import ru.otus.canvas.start.Data.createLargeData
 
-class StockChartView @JvmOverloads constructor (
+class StockChartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
 ) : View(context, attrs) {
 
-    data class StockPrice (
-        val low: Double,
-        val high: Double,
+    data class StockPrice(
+        val open: Double,
+        val close: Double,
     )
 
-    private data class StockPriceInternal (
-        val low: Double,
-        val high: Double,
+    private data class StockPriceInternal(
+        val open: Double,
+        val close: Double,
         val mid: Double,
     )
 
@@ -35,14 +35,14 @@ class StockChartView @JvmOverloads constructor (
         list.addAll(
             createLargeData().map {
                 StockPriceInternal(
-                    low = it.low,
-                    high = it.high,
-                    mid = (it.high + it.low) / 2,
+                    open = it.open,
+                    close = it.open,
+                    mid = (it.open + it.open) / 2,
                 )
             }
         )
-        maxValue = list.maxOf { it.high }
-        minValue = list.minOf { it.low }
+        maxValue = list.maxOf { it.close }
+        minValue = list.minOf { it.open }
     }
 
     private val paint = Paint().apply {
@@ -57,11 +57,13 @@ class StockChartView @JvmOverloads constructor (
         style = Paint.Style.STROKE
         strokeWidth = 16f
     }
+
     private val greenPaint = Paint().apply {
         color = Color.parseColor("#5ad45a")
         style = Paint.Style.STROKE
         strokeWidth = 16f
     }
+
     private val path = Path()
 
     override fun onDraw(canvas: Canvas) {
