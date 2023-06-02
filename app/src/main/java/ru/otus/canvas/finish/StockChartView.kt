@@ -19,13 +19,13 @@ class StockChartView @JvmOverloads constructor (
 ) : View(context, attrs) {
 
     data class StockPrice (
-        val low: Double,
-        val high: Double,
+        val open: Double,
+        val close: Double,
     )
 
     private data class StockPriceInternal (
-        val low: Double,
-        val high: Double,
+        val open: Double,
+        val close: Double,
         val mid: Double,
     )
 
@@ -38,14 +38,14 @@ class StockChartView @JvmOverloads constructor (
         list.addAll(
             createLargeData().map {
                 StockPriceInternal(
-                    low = it.low,
-                    high = it.high,
-                    mid = (it.high + it.low) / 2,
+                    open = it.open,
+                    close = it.close,
+                    mid = (it.close + it.open) / 2,
                 )
             }
         )
-        maxValue = list.maxOf { it.high }
-        minValue = list.minOf { it.low }
+        maxValue = list.maxOf { it.close }
+        minValue = list.minOf { it.open }
     }
 
 
@@ -99,11 +99,11 @@ class StockChartView @JvmOverloads constructor (
         for (i in first until first + newSize) {
             val item = list[i]
             y = ((item.mid - minValue) * hStep).toFloat()
-            yLow = ((item.low - minValue) * hStep).toFloat()
-            yHigh = ((item.high - minValue) * hStep).toFloat()
+            yLow = ((item.open - minValue) * hStep).toFloat()
+            yHigh = ((item.close - minValue) * hStep).toFloat()
             path.lineTo(x, y)
             if (newSize < 50) {
-                if (item.high > item.low) {
+                if (item.close > item.open) {
                     upBarsPath.moveTo(x, yLow)
                     upBarsPath.lineTo(x, yHigh)
                 } else {

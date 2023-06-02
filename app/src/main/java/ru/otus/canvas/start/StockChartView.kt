@@ -36,8 +36,8 @@ class StockChartView @JvmOverloads constructor(
             createLargeData().map {
                 StockPriceInternal(
                     open = it.open,
-                    close = it.open,
-                    mid = (it.open + it.open) / 2,
+                    close = it.close,
+                    mid = (it.open + it.close) / 2,
                 )
             }
         )
